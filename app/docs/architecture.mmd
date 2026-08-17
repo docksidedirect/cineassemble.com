@@ -1,0 +1,40 @@
+flowchart TB
+    U[Customer Browser] -->|HTTPS| RP[Reverse Proxy / TLS]
+    A[Administrator Browser] -->|HTTPS| RP
+    RP --> WEB[Web/API Container\nReact + Express]
+
+    WEB --> AUTH[Native Auth & Authorization\nOpaque Sessions + CSRF + RBAC]
+    WEB --> API[Tenant-Scoped REST Services]
+    WEB --> BILL[PayPal Billing & Webhook Handler]
+    WEB --> MEDIA[Protected Media Controller]
+
+    AUTH --> DB[(MySQL 8\nUsers, Sessions, Roles)]
+    API --> DB
+    BILL --> DB
+    MEDIA --> DB
+
+    API -->|Create draft / enqueue| DB
+    WORKER[Worker Container\nDurable Lease + Heartbeat] -->|Claim queued work| DB
+    WORKER --> PIPE[Idempotent Film Pipeline]
+    PIPE --> LLM[Script / TTS Provider]
+    PIPE --> IMG[High-Fidelity Image Edit\nProduct Reference First]
+    PIPE --> VIDEO[Video / Lip-Sync Providers]
+    PIPE --> FFMPEG[FFmpeg + Python Assembly\n16:9 · 9:16 · 1:1]
+
+    API --> STORE[(Private Tenant Storage\nLocal Adapter / S3-Compatible)]
+    MEDIA --> STORE
+    PIPE --> STORE
+    FFMPEG --> STORE
+
+    ADMIN[Admin Services\nUnlimited Entitlement + Audited Access] --> DB
+    API --> ADMIN
+
+    OBS[Structured Logs / Health / Metrics] --- WEB
+    OBS --- WORKER
+
+    classDef edge fill:#16181f,stroke:#f59e0b,color:#fff;
+    classDef data fill:#101827,stroke:#38bdf8,color:#fff;
+    classDef secure fill:#17231b,stroke:#34d399,color:#fff;
+    class WEB,WORKER,PIPE,FFMPEG edge;
+    class DB,STORE data;
+    class AUTH,ADMIN,MEDIA secure;

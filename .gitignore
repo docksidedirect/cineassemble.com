@@ -1,0 +1,32 @@
+﻿# Dependencies
+node_modules/
+
+# Environment & Secrets
+app/.env
+.env
+.env.local
+
+# Media & Generated Content (LARGE FILES - DO NOT COMMIT)
+data/
+app/data/
+*.mp4
+*.wav
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.mp3
+*.ogg
+*.mov
+*.avi
+
+# Logs
+*.log
+logs/
+
+# OS & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

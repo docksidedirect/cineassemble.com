@@ -1,0 +1,33 @@
+node_modules/
+dist/
+coverage/
+.env
+.env.*
+!.env.example
+*.log
+*.pid
+*.zip
+*.tar
+*.gz
+.DS_Store
+.vscode/
+.idea/
+
+# Private runtime state and generated media
+data/
+jobs/
+work/
+tmp/
+uploads/
+private/
+
+# Python and test caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.vitest/
+
+# Local database and backup artifacts
+*.sql.gz
+*.dump
+*.bak
