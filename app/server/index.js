@@ -31,6 +31,9 @@ import { createLibraryRouter } from "./routes/library.js";
 import { createMediaRouter } from "./routes/media.js";
 import { logger, requestLogger } from "./logger.js";
 import { listVideoTypes } from "./video-types.js";
+import { validateSetup } from "./setup-gate.js";
+
+validateSetup();
 
 const currentFile = fileURLToPath(import.meta.url);
 const distDir = path.join(path.dirname(currentFile), "..", "dist");
